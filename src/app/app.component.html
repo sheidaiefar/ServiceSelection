@@ -1,0 +1,55 @@
+<div class="container">
+
+  <mat-vertical-stepper [linear]="true" #stepper>
+    <mat-step>
+      <ng-template matStepLabel>Choose Your Services</ng-template>
+      <mat-tab-group class="mt-4">
+        <mat-tab *ngFor="let st of serviceTypes" [label]="st.title">
+          <div class="container">
+            <div class="row">
+              <div *ngFor="let service of st.services" class="col-md-6 col-lg-5 col-xl-4">
+                <h5 class="mt-4 mb-1">
+                  <mat-checkbox [(ngModel)]="service.isChecked" [name]="'servie_' + service.id" color="primary">
+                    {{service.title}}
+                  </mat-checkbox>
+                </h5>
+
+                <p class="text-muted d-inline">{{service.description}}</p>
+                <a href="javascript:void(0)" class="inline ml-2" (click)="onMoreClick(service)">more...</a>
+              </div>
+            </div>
+          </div>
+
+        </mat-tab>
+      </mat-tab-group>
+
+    </mat-step>
+
+    <mat-step [completed]="iAgree">
+      <ng-template matStepLabel>Terms and Conditions</ng-template>
+      <p class="mb-4">{{terms}}</p>
+      <mat-checkbox color="primary" [(ngModel)]="iAgree" name="agreementCheck"> I agree to the Terms of Service
+      </mat-checkbox>
+    </mat-step>
+
+    <mat-step>
+      <ng-template matStepLabel>Selected Services</ng-template>
+
+      <ng-container *ngFor="let st of serviceTypes">
+        <section *ngIf="getSelectedServices(st).length > 0" class="mb-5">
+          <h4>Selected Services from Type: <b>{{st.title}}</b></h4>
+          <mat-chip-list>
+            <mat-chip *ngFor="let service of getSelectedServices(st)" color="accent" selected>
+              {{service.title}}
+            </mat-chip>
+          </mat-chip-list>
+        </section>
+      </ng-container>
+
+      <p *ngIf="!isAnyServiceSelected()">
+        No Service Is selected.
+      </p>
+
+    </mat-step>
+  </mat-vertical-stepper>
+</div>
