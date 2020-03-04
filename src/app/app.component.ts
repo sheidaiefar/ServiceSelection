@@ -14,6 +14,7 @@ export class AppComponent {
   serviceTypes: ServiceTypeModel[];
   terms: string;
   iAgree: boolean;
+  send = false;
 
   constructor(service: AppService, private dialog: MatDialog) {
     service.getServiceTypes().subscribe(x => this.serviceTypes = x);
@@ -34,5 +35,9 @@ export class AppComponent {
       width: '500px',
       data: { service }
     });
+  }
+
+  onSendClick() {
+    this.send = true;
   }
 }

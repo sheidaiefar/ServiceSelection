@@ -25,11 +25,13 @@
 
     </mat-step>
 
-    <mat-step [completed]="iAgree">
+    <mat-step [completed]="send">
       <ng-template matStepLabel>Terms and Conditions</ng-template>
       <p class="mb-4">{{terms}}</p>
       <mat-checkbox color="primary" [(ngModel)]="iAgree" name="agreementCheck"> I agree to the Terms of Service
       </mat-checkbox>
+      <div class="w100"></div>
+      <button mat-button class="mat-flat-button" color="primary" (click)="onSendClick()" [disabled]="!iAgree">Send</button>    
     </mat-step>
 
     <mat-step>
